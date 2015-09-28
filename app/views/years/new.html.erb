@@ -1,0 +1,9 @@
+<h3>Enter new year</h3>
+<%= form_for @year,  class: "form-inline" do |f|%>
+	<div class="form-group">
+		<p><%= f.text_field :title, {class: "form-control", placeholder: "Enter year"} %></p>
+		<p>
+		<%= f.submit "Submit", class: "btn btn-default" %>
+		</p>
+	</div>
+<% end %>

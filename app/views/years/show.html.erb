@@ -1,0 +1,42 @@
+<h2><%= @year.title%> 
+<% if @year.success?(@year)%>
+<small><span class="label label-success">Succeed</span></small>
+<% else%>
+<small><span class="label label-warning">Not yet</span></small>
+<% end %>
+</h2>
+
+<div class="row">
+<div class="col-md-5">
+	<div class="progres">
+	  <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="1400" style="width: <%= @year.year_average(@year)%>%;">
+	  Total marks: <%= @year.average%> , Average: <%= number_with_precision(@year.year_average(@year), precision: 2) %>
+	  </div>
+	</div>
+</div>
+</div>
+
+
+<h3> <i class="fa fa-arrow-up"></i> <span class="badge"><%= @year.sub_count(@year)%></span> | <i class="fa fa-arrow-down"></i> <span class="badge"><%= 14 - @year.sub_count(@year) %></span> </h3>
+
+<hr>
+
+<div class="row">
+
+<% @year.subjects.each do |subject|%>
+	<div class="col-md-3">
+	<% if subject.mark >= 60 %>
+	<h3><center><div class="alert alert-success" role="alert"><%= subject.name %></div></center>
+	<h2><center><span class="badge-overriden"><%= subject.mark %></span></center>
+	<% else %>
+
+	<h3><center><div class="alert alert-danger" role="alert" ><%= link_to "#{subject.name}", edit_year_subject_path(@year,subject) %></div></center>
+	<h2><center><span class="badge-overriden"><%= subject.mark %></span></center>
+
+	<% end %>
+
+	</div>
+<% end %>
+
+</div>
+<hr>

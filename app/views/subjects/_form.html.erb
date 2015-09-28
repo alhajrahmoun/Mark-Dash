@@ -1,0 +1,13 @@
+<%= form_for [@year,@subject], class: "form-inline" do |f|%>
+ <div class="form-group">
+	<p>
+		<%= f.text_field :name, {class: "form-control", placeholder: "Enter Subject name"} %>
+	</p>
+	
+	<p>
+		<%= f.text_field :mark, {class: "form-control", placeholder: "Enter Subject mark"} %>
+	</p>
+	
+	<%= f.submit "Submit", class: 'btn btn-default' %>
+	</div>
+<% end %>
