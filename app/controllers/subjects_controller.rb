@@ -1,6 +1,9 @@
 class SubjectsController < ApplicationController
 	before_filter :find_year
 	before_filter :find_subject, only: [:edit, :update]
+	before_action :authenticate_user!
+	before_action :years_find
+	
 	def index
 		@subjects = Subject.where("year_id = #{@year.id}")
 	end
@@ -13,7 +16,7 @@ class SubjectsController < ApplicationController
 		@subject = Subject.new(subject_params)
 		@subject.year_id = @year.id
 		if @subject.save
-			redirect_to year_subjects_path
+			redirect_to year_path(@year)
 		else
 			render 'new'
 		end
@@ -41,5 +44,9 @@ class SubjectsController < ApplicationController
 
 	def find_subject
 		@subject = Subject.find(params[:id])
+	end
+
+	def years_find
+		@years = Year.where("user_id = #{current_user.id}")
 	end
 end

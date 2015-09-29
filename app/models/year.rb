@@ -6,6 +6,11 @@ class Year < ActiveRecord::Base
 		avg = @subs.average(:mark)
 	end
 
+	def year_sum(year)
+		@subs = Subject.where("year_id = #{year.id}")
+		sum = @subs.sum(:mark)
+	end
+
 	def sub_count(year)
 		count=0
 		year.subjects.each do |y|

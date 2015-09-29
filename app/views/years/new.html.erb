@@ -1,3 +1,37 @@
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Mark Dash</a>
+    </div>
+
+     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <% @years.each do |year| %>
+        <li><%= link_to "#{year.title}", year_path(year)%></li>
+  	    <% end %>
+      <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Add new Subjects for <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+           <% @years.each do |year| %>
+            <li><%= link_to "#{year.title}", new_year_subject_path(year)%></li>
+		<% end %>
+          </ul>
+        </li>
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="<%= new_year_path%>">Add new year</a></li>
+      </ul>
+    </div>
+   
 <h3>Enter new year</h3>
 <%= form_for @year,  class: "form-inline" do |f|%>
 	<div class="form-group">
@@ -7,3 +41,6 @@
 		</p>
 	</div>
 <% end %>
+
+     </div>
+    </nav>
