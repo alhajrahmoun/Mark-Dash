@@ -1,5 +1,6 @@
 class Year < ActiveRecord::Base
 	has_many :subjects
+	belongs_to :user
 
 	def year_average(year)
 		@subs = Subject.where("year_id = #{year.id} AND mark >= 60")

@@ -1,9 +1,10 @@
 class SubjectsController < ApplicationController
+	before_action :authenticate_user!
 	before_filter :find_year
 	before_filter :find_subject, only: [:edit, :update]
-	before_action :authenticate_user!
 	before_action :years_find
-	
+	rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+
 	def index
 		@subjects = Subject.where("year_id = #{@year.id}")
 	end
@@ -39,7 +40,7 @@ class SubjectsController < ApplicationController
 	end
 
 	def find_year
-		@year = Year.find(params[:year_id])
+		@year = current_user.years.find(params[:year_id])
 	end
 
 	def find_subject
@@ -48,5 +49,9 @@ class SubjectsController < ApplicationController
 
 	def years_find
 		@years = Year.where("user_id = #{current_user.id}")
+	end
+
+	def not_found
+  		raise ActionController::RoutingError.new('Record does not belong to you!')
 	end
 end

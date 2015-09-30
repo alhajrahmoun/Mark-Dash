@@ -1,6 +1,8 @@
 class YearsController < ApplicationController
 	before_action :authenticate_user!
 	before_action :years_find
+	rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+
 
 	def new
 		@year = Year.new
@@ -17,7 +19,7 @@ class YearsController < ApplicationController
 	end
 
 	def show
-		@year = Year.find(params[:id])
+		@year = current_user.years.find(params[:id])
 	end
 
 	private
@@ -27,5 +29,9 @@ class YearsController < ApplicationController
 
 	def years_find
 		@years = Year.where("user_id = #{current_user.id}")
+	end
+
+	def not_found
+  		raise ActionController::RoutingError.new('Record does not belong to you!')
 	end
 end
