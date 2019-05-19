@@ -1,7 +1,7 @@
 class SubjectsController < ApplicationController
 	before_action :authenticate_user!
-	before_filter :find_year
-	before_filter :find_subject, only: [:edit, :update]
+	before_action :find_year
+	before_action :find_subject, only: [:edit, :update]
 	before_action :years_find
 
 	rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
